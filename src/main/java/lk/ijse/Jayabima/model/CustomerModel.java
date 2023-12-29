@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerModel {
-    private String splitCustomerID(String currentCustomerID){
+    /*private String splitCustomerID(String currentCustomerID){
         if (currentCustomerID != null) {
             String[] split = currentCustomerID.split("[C]");
 
@@ -63,7 +63,7 @@ public class CustomerModel {
 
     public static boolean updateCustomer(CustomerDto dto) throws SQLException {
         Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "update customer set cus_name = ?, cus_address = ?, cus_mobile = ? where cus_id = ?";
+        String sql = "UPDATE customer set cus_name = ?, cus_address = ?, cus_mobile = ? where cus_id = ?";
         PreparedStatement pstm = connection.prepareStatement(sql);
 
         pstm.setString(1, dto.getName());
@@ -119,5 +119,5 @@ public class CustomerModel {
         }
         return dtoList;
 
-    }
+    }*/
 }

@@ -10,10 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.CustomerBO;
+import lk.ijse.Jayabima.dao.custom.CustomerDAO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.CustomerDto;
 import lk.ijse.Jayabima.dto.tm.CustomerTm;
-import lk.ijse.Jayabima.dto.tm.ItemTm;
 import lk.ijse.Jayabima.model.CustomerModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -22,16 +24,11 @@ import net.sf.jasperreports.view.JasperViewer;
 import org.controlsfx.control.Notifications;
 
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Pattern;
 
 public class CustomerFormController {
@@ -65,7 +62,6 @@ public class CustomerFormController {
 
     @FXML
     private TableView<CustomerTm> tblCustomer;
-    private final CustomerModel customerModel = new CustomerModel();
 
     @FXML
     private Label lblDate;
@@ -73,7 +69,9 @@ public class CustomerFormController {
     @FXML
     private Label lblTime;
 
-    public void initialize() {
+    CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+
+    public void initialize() throws ClassNotFoundException {
         setCellValueFactory();
         loadAllCustomer();
         tableListener();
@@ -100,7 +98,7 @@ public class CustomerFormController {
     private void  generateNextCustomerID(){
         try {
             String previousCustomerID = lblCustomerId.getText();
-            String customerID = customerModel.generateNextCustomer();
+            String customerID = customerBO.generateCustomerID();
             lblCustomerId.setText(customerID);
             clearFields();
             if (btnClearPressed){
@@ -133,12 +131,11 @@ public class CustomerFormController {
     }
 
 
-    private void loadAllCustomer() {
-        var model = new CustomerModel();
+    private void loadAllCustomer() throws ClassNotFoundException {
 
         ObservableList<CustomerTm> obList = FXCollections.observableArrayList();
         try{
-            List<CustomerDto> dtoList = model.getAllCustomer();
+            List<CustomerDto> dtoList = customerBO.getAllCustomer();
 
             for (CustomerDto dto : dtoList) {
                 obList.add(
@@ -165,7 +162,7 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnAddCustomerOnAction(ActionEvent event) {
+    void btnAddCustomerOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = lblCustomerId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
@@ -178,7 +175,7 @@ public class CustomerFormController {
             }
             clearFields();
             var dto = new CustomerDto(id, name, address, mobile);
-            boolean isSaved = CustomerModel.saveCustomer(dto);
+            boolean isSaved = customerBO.saveCustomer(dto);
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Customer Saved").show();
                 clearFields();
@@ -199,11 +196,11 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnDeleteCustomerOnAction(ActionEvent event){
+    void btnDeleteCustomerOnAction(ActionEvent event) throws ClassNotFoundException {
         String id  = lblCustomerId.getText();
 
         try {
-            boolean isDeleted = CustomerModel.deleteCustomer(id);
+            boolean isDeleted = customerBO.deleteCustomer(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer Deleted").show();
                 clearFields();
@@ -219,7 +216,7 @@ public class CustomerFormController {
     }
 
     @FXML
-    void btnUpdateCustomerOnAction(ActionEvent event) {
+    void btnUpdateCustomerOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = lblCustomerId.getText();
         String name = txtName.getText();
         String address = txtAddress.getText();
@@ -231,7 +228,7 @@ public class CustomerFormController {
             }
             clearFields();
             var dto = new CustomerDto(id, name, address, mobile);
-            boolean isUpdated = CustomerModel.updateCustomer(dto);
+            boolean isUpdated = customerBO.updateCustomer(dto);
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Customer details updated").show();;
                 clearFields();
@@ -250,7 +247,7 @@ public class CustomerFormController {
         String id = txtSearch.getText();
         try {
 
-            CustomerDto customerDto = customerModel.searchCustomer(id);
+            CustomerDto customerDto = customerBO.searchCustomer(id);
             if (customerDto != null) {
                 txtSearch.setText(customerDto.getId());
                 txtName.setText(customerDto.getName());
