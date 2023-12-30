@@ -1,15 +1,10 @@
 package lk.ijse.Jayabima.bo.custom;
 
 import lk.ijse.Jayabima.bo.SuperBO;
-import lk.ijse.Jayabima.dao.SQLUtil;
 import lk.ijse.Jayabima.dto.ItemDto;
-import lk.ijse.Jayabima.dto.tm.CustomerCartTm;
-import lk.ijse.Jayabima.dto.tm.StockCartTm;
-import lk.ijse.Jayabima.entity.Item;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 public interface ItemBO extends SuperBO {
 

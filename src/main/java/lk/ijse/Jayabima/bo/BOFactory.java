@@ -2,6 +2,7 @@ package lk.ijse.Jayabima.bo;
 
 import lk.ijse.Jayabima.bo.custom.impl.CustomerBOImpl;
 import lk.ijse.Jayabima.bo.custom.impl.ItemBOImpl;
+import lk.ijse.Jayabima.bo.custom.impl.SupplierBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -20,7 +21,7 @@ public class BOFactory {
             case CUSTOMER:
                 return new CustomerBOImpl();
             case SUPPLIER:
-                return null;
+                return new SupplierBOImpl();
             case ITEM:
                 return new ItemBOImpl();
             case EMPLOYEE:

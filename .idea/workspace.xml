@@ -7,34 +7,10 @@
     <list default="true" id="7eb3cbcc-5370-451b-9df8-dff53ee4878a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/bo/BOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/bo/BOFactory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/bo/custom/ItemBO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/bo/custom/ItemBO.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/bo/custom/impl/CustomerBOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/bo/custom/impl/CustomerBOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/CustomerFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/CustomerFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/EmployeeFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/EmployeeFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/ItemFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/ItemFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/PlaceItemOrderFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/PlaceItemOrderFormController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/PlaceStockOrderFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/PlaceStockOrderFormController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/dao/DAOFactory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/dao/DAOFactory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/dao/custom/impl/CustomerDAOImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/dao/custom/impl/CustomerDAOImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/model/CustomerModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/model/ItemModel.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/model/PlaceItemOrderModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/model/PlaceItemOrderModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/model/PlaceStockOrderModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/model/PlaceStockOrderModel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/BOFactory$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/BOFactory$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/BOFactory$BOTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/BOFactory$BOTypes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/BOFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/BOFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/custom/impl/CustomerBOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/bo/custom/impl/CustomerBOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/CustomerFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/CustomerFormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/EmployeeFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/EmployeeFormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/ItemFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/ItemFormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/PlaceItemOrderFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/PlaceItemOrderFormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/PlaceStockOrderFormController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/controller/PlaceStockOrderFormController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/DAOFactory$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/DAOFactory$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/DAOFactory$DAOTypes.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/DAOFactory$DAOTypes.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/DAOFactory.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/DAOFactory.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/custom/impl/CustomerDAOImpl.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/dao/custom/impl/CustomerDAOImpl.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/model/CustomerModel.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/model/PlaceItemOrderModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/model/PlaceItemOrderModel.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/model/PlaceStockOrderModel.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/lk/ijse/Jayabima/model/PlaceStockOrderModel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/SupplierFormController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/lk/ijse/Jayabima/controller/SupplierFormController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -69,30 +45,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LauncherWrapper.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "D:/IJSE/My Repositories/Layered-Architecture-Day-02",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LauncherWrapper.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/IJSE/SEMESETER FINAL PROJECT/IDEA Project/Hardware-Store-Management-System-Layered-Architecture/src/main/java/lk/ijse/Jayabima/entity&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mysql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mysql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\IJSE\SEMESETER FINAL PROJECT\IDEA Project\Hardware-Store-Management-System-Layered-Architecture\src\main\java\lk\ijse\Jayabima\entity" />
       <recent name="D:\IJSE\SEMESETER FINAL PROJECT\IDEA Project\Hardware-Store-Management-System-Layered-Architecture\src\main\java\lk\ijse\Jayabima" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
@@ -135,11 +112,22 @@
       <workItem from="1703774834122" duration="2212000" />
       <workItem from="1703860836497" duration="6977000" />
       <workItem from="1703921026311" duration="2674000" />
-      <workItem from="1703945991571" duration="4008000" />
+      <workItem from="1703945991571" duration="10146000" />
+      <workItem from="1703962763160" duration="344000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.NullPointerException" package="java.lang" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

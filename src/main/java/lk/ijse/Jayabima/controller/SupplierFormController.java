@@ -11,6 +11,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.SupplierBO;
+import lk.ijse.Jayabima.dao.DAOFactory;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.SupplierDto;
 import lk.ijse.Jayabima.dto.tm.CustomerTm;
@@ -70,9 +73,7 @@ public class SupplierFormController {
 
     @FXML
     private Label lblTime;
-
-
-    private final SupplierModel supplierModel =  new SupplierModel();
+    private SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
     private void clearFields() {
         txtId.setText("");
@@ -108,7 +109,7 @@ public class SupplierFormController {
     private void  generateNextSupplierID(){
         try {
             String previousSupplierID = lblId.getText();
-            String supplierID = supplierModel.generateNextSupplier();
+            String supplierID = supplierBO.generateSupplierID();
             lblId.setText(supplierID);
             clearFields();
             if (btnClearPressed){
@@ -143,12 +144,11 @@ public class SupplierFormController {
     }
 
     private void loadAllSupplier() {
-        var model = new SupplierModel();
 
         ObservableList<SupplierTm> obList = FXCollections.observableArrayList();
 
         try {
-            List<SupplierDto> dtoList = model.getAllSupplier();
+            List<SupplierDto> dtoList = supplierBO.getAllSupplier();
 
             for (SupplierDto dto : dtoList) {
                 obList.add(
@@ -180,7 +180,7 @@ public class SupplierFormController {
             }
             clearFields();
             var dto = new SupplierDto(id, name, desc, mobile);
-            boolean isSaved = supplierModel.saveSupplier(dto);
+            boolean isSaved = supplierBO.saveSupplier(dto);
             if(isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier Saved !").show();
                 clearFields();
@@ -201,11 +201,11 @@ public class SupplierFormController {
     }
 
     @FXML
-    void btnDeleteSupplierOnAction(ActionEvent event) {
+    void btnDeleteSupplierOnAction(ActionEvent event) throws ClassNotFoundException {
         String id = lblId.getText();
 
         try{
-            boolean isDeleted = supplierModel.deleteSupplier(id);
+            boolean isDeleted = supplierBO.deleteSupplier(id);
             if(isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "customer deleted!").show();
                 clearFields();
@@ -224,7 +224,7 @@ public class SupplierFormController {
         String id = txtId.getText();
 
         try {
-            SupplierDto supplierDto = supplierModel.searchSupplier(id);
+            SupplierDto supplierDto = supplierBO.searchSupplier(id);
             if (supplierDto != null) {
                 txtId.setText(supplierDto.getSupId());
                 txtName.setText(supplierDto.getSupName());
@@ -251,7 +251,7 @@ public class SupplierFormController {
             }
             clearFields();
             var dto = new SupplierDto(id, name, desc, mobile);
-            boolean isSaved = supplierModel.updateSupplier(dto);
+            boolean isSaved = supplierBO.updateSupplier(dto);
             if(isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Supplier Saved !").show();
                 clearFields();

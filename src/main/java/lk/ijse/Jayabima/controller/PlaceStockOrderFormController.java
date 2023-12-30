@@ -20,6 +20,7 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.Jayabima.bo.BOFactory;
 import lk.ijse.Jayabima.bo.custom.ItemBO;
+import lk.ijse.Jayabima.bo.custom.SupplierBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.ItemDto;
 import lk.ijse.Jayabima.dto.PlaceStockOrderDto;
@@ -105,7 +106,7 @@ public class PlaceStockOrderFormController {
     @FXML
     private Label lblTime;
 
-    private SupplierModel supplierModel = new SupplierModel();
+    private SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
     private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
     private StockOrderModel stockOrderModel = new StockOrderModel();
     private PlaceStockOrderModel placeStockOrderModel = new PlaceStockOrderModel();
@@ -151,7 +152,7 @@ public class PlaceStockOrderFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<SupplierDto> idList = supplierModel.getAllSupplier();
+            List<SupplierDto> idList = supplierBO.getAllSupplier();
 
             for (SupplierDto dto : idList) {
                 obList.add(dto.getSupId());
@@ -206,7 +207,7 @@ public class PlaceStockOrderFormController {
         String id = cmbSupplierId.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            SupplierDto supplierDto = supplierModel.searchSupplier(id);
+            SupplierDto supplierDto = supplierBO.searchSupplier(id);
             lblSupplierName.setText(supplierDto.getSupName());
 
         } catch (SQLException e) {

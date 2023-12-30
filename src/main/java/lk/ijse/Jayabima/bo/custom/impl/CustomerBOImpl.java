@@ -13,8 +13,8 @@ public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
     public ArrayList<CustomerDto> getAllCustomer() throws SQLException {
-        ArrayList<Customer> customers=customerDAO.getAll();
-        ArrayList<CustomerDto> customerDTOS=new ArrayList<>();
+        ArrayList<Customer> customers = customerDAO.getAll();
+        ArrayList<CustomerDto> customerDTOS = new ArrayList<>();
         for (Customer customer:customers) {
             customerDTOS.add(new CustomerDto(customer.getId(),customer.getName(),customer.getAddress(), customer.getMobile()));
         }
