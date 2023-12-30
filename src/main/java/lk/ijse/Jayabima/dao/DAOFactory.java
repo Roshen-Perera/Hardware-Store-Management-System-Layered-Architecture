@@ -1,6 +1,7 @@
 package lk.ijse.Jayabima.dao;
 
 import lk.ijse.Jayabima.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.Jayabima.dao.custom.impl.ItemDAOImpl;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -22,7 +23,7 @@ public class DAOFactory {
             case SUPPLIER:
                 return null;
             case ITEM:
-                return null;
+                return new ItemDAOImpl();
             case EMPLOYEE:
                 return null;
             case STOCK_ORDER:

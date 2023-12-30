@@ -18,17 +18,17 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.CustomerBO;
+import lk.ijse.Jayabima.bo.custom.ItemBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.CustomerDto;
 import lk.ijse.Jayabima.dto.ItemDto;
 import lk.ijse.Jayabima.dto.PlaceItemOrderDto;
 import lk.ijse.Jayabima.dto.tm.CustomerCartTm;
-import lk.ijse.Jayabima.model.CustomerModel;
-import lk.ijse.Jayabima.model.ItemModel;
 import lk.ijse.Jayabima.model.ItemOrderModel;
 import lk.ijse.Jayabima.model.PlaceItemOrderModel;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -112,13 +112,13 @@ public class PlaceItemOrderFormController {
     @FXML
     private TextField txtQty;
 
-    private CustomerModel customerModel = new CustomerModel();
-    private ItemModel itemModel = new ItemModel();
+    private CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
+    private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
     private ItemOrderModel itemOrderModel = new ItemOrderModel();
     private PlaceItemOrderModel placeItemOrderModel = new PlaceItemOrderModel();
     private ObservableList<CustomerCartTm> obList = FXCollections.observableArrayList();
 
-    public void initialize() {
+    public void initialize() throws ClassNotFoundException {
         setCellValueFactory();
         setDate();
         generateNextOrderId();
@@ -141,11 +141,11 @@ public class PlaceItemOrderFormController {
         });
     }
 
-    private void loadCustomerIds() {
+    private void loadCustomerIds() throws ClassNotFoundException {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<CustomerDto> idList = customerModel.getAllCustomer();
+            List<CustomerDto> idList = customerBO.getAllCustomer();
 
             for (CustomerDto dto : idList) {
                 obList.add(dto.getId());
@@ -261,7 +261,7 @@ public class PlaceItemOrderFormController {
         String id = cmbCustomerId.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            CustomerDto customerDto = customerModel.searchCustomer(id);
+            CustomerDto customerDto = customerBO.searchCustomer(id);
             lblCustomerName.setText(customerDto.getName());
 
         } catch (SQLException e) {
@@ -275,7 +275,7 @@ public class PlaceItemOrderFormController {
 
         txtQty.requestFocus();
         try {
-            ItemDto dto = itemModel.searchItem(code);
+            ItemDto dto = itemBO.searchItem(code);
             lblBrandName.setText(dto.getItemName());
             lblDescription.setText(dto.getItemDesc());
             lblUnitPrice.setText(String.valueOf(dto.getItemUnitPrice()));
@@ -293,7 +293,7 @@ public class PlaceItemOrderFormController {
     private void loadItemCodes() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<ItemDto> itemDtos = itemModel.getAllItems();
+            List<ItemDto> itemDtos = itemBO.getAllItem();
 
             for (ItemDto dto : itemDtos) {
                 obList.add(dto.getItemCode());

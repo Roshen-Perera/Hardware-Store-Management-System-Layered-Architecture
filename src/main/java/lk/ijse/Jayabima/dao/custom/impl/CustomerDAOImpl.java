@@ -2,7 +2,6 @@ package lk.ijse.Jayabima.dao.custom.impl;
 
 import lk.ijse.Jayabima.dao.SQLUtil;
 import lk.ijse.Jayabima.dao.custom.CustomerDAO;
-import lk.ijse.Jayabima.dto.CustomerDto;
 import lk.ijse.Jayabima.entity.Customer;
 
 import java.sql.ResultSet;
@@ -42,26 +41,27 @@ public class CustomerDAOImpl implements CustomerDAO {
     }
 
     public boolean update(Customer entity) throws SQLException {
-        return SQLUtil.execute("UPDATE customer set cus_name = ?, cus_address = ?, cus_mobile = ? where cus_id = ?", entity.getId(), entity.getName(), entity.getAddress(), entity.getMobile());
+        return SQLUtil.execute("UPDATE customer set cus_name = ?, cus_address = ?, cus_mobile = ? where cus_id = ?", entity.getName(), entity.getAddress(), entity.getMobile(), entity.getId());
     }
 
     public void delete(String id) throws SQLException, ClassNotFoundException {
-        SQLUtil.execute("DELETE FROM Customer WHERE id=?",id);
+        SQLUtil.execute("DELETE FROM Customer WHERE cus_id=?",id);
     }
 
     public boolean exist(String id) throws SQLException {
-        ResultSet rst=SQLUtil.execute("SELECT id FROM Customer WHERE id=?",id);
+        ResultSet rst=SQLUtil.execute("SELECT cus_id FROM Customer WHERE cus_id=?",id);
         return rst.next();
 
     }
 
     public Customer search(String id) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer WHERE id=?",id);
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Customer WHERE cus_id=?",id);
         rst.next();
         return new Customer(
                 id + "",
-                rst.getString("name"),
-                rst.getString("address"),
-                rst.getString("mobile"));
+                rst.getString("cus_name"),
+                rst.getString("cus_address"),
+                rst.getString("cus_mobile")
+        );
     }
 }

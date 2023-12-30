@@ -18,6 +18,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.ItemBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.ItemDto;
 import lk.ijse.Jayabima.dto.PlaceStockOrderDto;
@@ -104,7 +106,7 @@ public class PlaceStockOrderFormController {
     private Label lblTime;
 
     private SupplierModel supplierModel = new SupplierModel();
-    private ItemModel itemModel = new ItemModel();
+    private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
     private StockOrderModel stockOrderModel = new StockOrderModel();
     private PlaceStockOrderModel placeStockOrderModel = new PlaceStockOrderModel();
 
@@ -163,7 +165,7 @@ public class PlaceStockOrderFormController {
     private void loadItemCodes() {
         ObservableList<String> obList = FXCollections.observableArrayList();
         try {
-            List<ItemDto> itemDtos = itemModel.getAllItems();
+            List<ItemDto> itemDtos = itemBO.getAllItem();
 
             for (ItemDto dto : itemDtos) {
                 obList.add(dto.getItemCode());
@@ -218,7 +220,7 @@ public class PlaceStockOrderFormController {
 
         txtQty.requestFocus();
         try {
-            ItemDto dto = itemModel.searchItem(code);
+            ItemDto dto = itemBO.searchItem(code);
             lblBrandName.setText(dto.getItemName());
             lblDescription.setText(dto.getItemDesc());
             lblQtyOnHand.setText(String.valueOf(dto.getItemQty()));

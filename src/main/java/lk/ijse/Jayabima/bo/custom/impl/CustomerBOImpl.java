@@ -12,7 +12,7 @@ import java.util.ArrayList;
 public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER);
 
-    public ArrayList<CustomerDto> getAllCustomer() throws SQLException, ClassNotFoundException {
+    public ArrayList<CustomerDto> getAllCustomer() throws SQLException {
         ArrayList<Customer> customers=customerDAO.getAll();
         ArrayList<CustomerDto> customerDTOS=new ArrayList<>();
         for (Customer customer:customers) {
@@ -36,7 +36,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     public boolean deleteCustomer(String id) throws SQLException, ClassNotFoundException {
         customerDAO.delete(id);
-        return false;
+        return true;
     }
 
     public String generateCustomerID() throws SQLException {
@@ -45,7 +45,7 @@ public class CustomerBOImpl implements CustomerBO {
 
     public CustomerDto searchCustomer(String id) throws SQLException {
         Customer customer = customerDAO.search(id);
-        CustomerDto customerDTO = new CustomerDto(customer.getId(),customer.getName(),customer.getAddress(), customer.getMobile());
-        return customerDTO;
+        CustomerDto customerDto = new CustomerDto(customer.getId(),customer.getName(),customer.getAddress(), customer.getMobile());
+        return customerDto;
     }
 }

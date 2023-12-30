@@ -1,5 +1,7 @@
 package lk.ijse.Jayabima.model;
 
+import lk.ijse.Jayabima.dao.DAOFactory;
+import lk.ijse.Jayabima.dao.custom.ItemDAO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.PlaceItemOrderDto;
 
@@ -9,7 +11,7 @@ import java.time.LocalDate;
 
 public class PlaceItemOrderModel {
     private ItemOrderModel itemOrderModel = new ItemOrderModel();
-    private ItemModel itemModel = new ItemModel();
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
     private ItemOrderDetailModel itemOrderDetailModel = new ItemOrderDetailModel();
 
     public boolean placeOrder(PlaceItemOrderDto placeItemOrderDto) throws SQLException {
@@ -28,7 +30,7 @@ public class PlaceItemOrderModel {
 
             boolean isOrderSaved = itemOrderModel.saveOrder(orderId, customerId, customerName, totalPrice, date);
             if (isOrderSaved) {
-                boolean isUpdated = itemModel.updateItem(placeItemOrderDto.getCustomerCartTmList());
+                boolean isUpdated = itemDAO.updateItem(placeItemOrderDto.getCustomerCartTmList());
                 if (isUpdated) {
                     boolean isOrderDetailSaved = itemOrderDetailModel.saveOrderDetails(placeItemOrderDto.getOrderId(), placeItemOrderDto.getCustomerCartTmList());
                     if (isOrderDetailSaved) {

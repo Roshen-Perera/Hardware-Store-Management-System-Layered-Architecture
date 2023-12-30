@@ -12,14 +12,12 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.ItemBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.ItemDto;
 import lk.ijse.Jayabima.dto.SupplierDto;
-import lk.ijse.Jayabima.dto.tm.CustomerTm;
 import lk.ijse.Jayabima.dto.tm.ItemTm;
-import lk.ijse.Jayabima.dto.tm.StockCartTm;
-import lk.ijse.Jayabima.dto.tm.SupplierTm;
-import lk.ijse.Jayabima.model.ItemModel;
 import lk.ijse.Jayabima.model.SupplierModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
@@ -93,7 +91,7 @@ public class ItemFormController {
     @FXML
     private Label lblTime;
 
-    private ItemModel itemModel = new ItemModel();
+    ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
 
     private SupplierModel supplierModel = new SupplierModel();
 
@@ -140,7 +138,7 @@ public class ItemFormController {
     private void  generateNextItemID(){
         try {
             String previousCustomerID = lblId.getText();
-            String customerID = itemModel.generateNextItem();
+            String customerID = itemBO.generateItemID();
             lblId.setText(customerID);
             clearFields();
             if (btnClearPressed){
@@ -191,7 +189,7 @@ public class ItemFormController {
 //        var model = new ItemModel();
         ObservableList<ItemTm> obList = FXCollections.observableArrayList();
         try {
-            List<ItemDto> dtoList = itemModel.getAllItems();
+            List<ItemDto> dtoList = itemBO.getAllItem();
 
             for (ItemDto dto : dtoList) {
                 obList.add(new ItemTm(
@@ -228,7 +226,7 @@ public class ItemFormController {
             }
             clearFields();
             var dto = new ItemDto(item_code, item_name, item_desc, item_qty, item_unitPrice, supplierId);
-            boolean isSaved = itemModel.saveCustomer(dto);
+            boolean isSaved = itemBO.saveItem(dto);
             if (isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Item Saved").show();
             }
@@ -246,10 +244,10 @@ public class ItemFormController {
     }
 
     @FXML
-    void btnDeleteItemOnAction(ActionEvent event) {
+    void btnDeleteItemOnAction(ActionEvent event) throws ClassNotFoundException {
         String item_code = lblId.getText();
         try {
-            boolean isDeleted = itemModel.deleteCustomer(item_code);
+            boolean isDeleted = itemBO.deleteItem(item_code);
             if(isDeleted){
                 new Alert(Alert.AlertType.CONFIRMATION,"Item Deleted").show();
                 loadAllItems();
@@ -266,7 +264,7 @@ public class ItemFormController {
     void btnSearchOnAction(ActionEvent event) {
         String id = txtItemCode.getText();
         try {
-            ItemDto itemDto = itemModel.searchItem(id);
+            ItemDto itemDto = itemBO.searchItem(id);
             if (itemDto != null) {
                 txtItemCode.setText(itemDto.getItemCode());
                 txtItemName.setText(itemDto.getItemName());
@@ -299,7 +297,7 @@ public class ItemFormController {
             }
             clearFields();
             var dto = new ItemDto(item_code, item_name, item_desc, item_qty, item_unitPrice, supplierId);
-            boolean isUpdated = itemModel.updateItem(dto);
+            boolean isUpdated = itemBO.updateItem(dto);
             if (isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Items are updated").show();
                 loadAllItems();

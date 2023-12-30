@@ -12,11 +12,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
 import lk.ijse.Jayabima.bo.BOFactory;
 import lk.ijse.Jayabima.bo.custom.CustomerBO;
-import lk.ijse.Jayabima.dao.custom.CustomerDAO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.CustomerDto;
 import lk.ijse.Jayabima.dto.tm.CustomerTm;
-import lk.ijse.Jayabima.model.CustomerModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -111,7 +109,7 @@ public class CustomerFormController {
 
     private void tableListener() {
         tblCustomer.getSelectionModel().selectedItemProperty().addListener((observable, oldValued, newValue) -> {
-//            System.out.println(newValue);
+            System.out.println(newValue);
             setData(newValue);
         });
     }
