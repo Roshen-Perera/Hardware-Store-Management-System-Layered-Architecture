@@ -1,12 +1,12 @@
-package lk.ijse.Jayabima.dto;
+package lk.ijse.Jayabima.entity;
 
-public class RegisterDto {
+public class Register {
     private String username;
     private String mobile;
     private String password;
     private String repeatPassword;
 
-    public RegisterDto(String username, String mobile, String password, String repeatPassword) {
+    public Register(String username, String mobile, String password, String repeatPassword) {
         this.username = username;
         this.mobile = mobile;
         this.password = password;

@@ -1,8 +1,7 @@
 package lk.ijse.Jayabima.bo;
 
-import lk.ijse.Jayabima.bo.custom.impl.CustomerBOImpl;
-import lk.ijse.Jayabima.bo.custom.impl.ItemBOImpl;
-import lk.ijse.Jayabima.bo.custom.impl.SupplierBOImpl;
+import lk.ijse.Jayabima.bo.custom.impl.*;
+import lk.ijse.Jayabima.dao.custom.impl.SalaryDAOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -14,10 +13,12 @@ public class BOFactory {
 
     }
     public enum BOTypes{
-        CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, STOCK_ORDER, PLACE_ORDER
+        REGISTER,CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, PLACE_ORDER
     }
     public SuperBO getBO(BOTypes boTypes){
         switch (boTypes){
+            case REGISTER:
+                return new RegisterBOImpl();
             case CUSTOMER:
                 return new CustomerBOImpl();
             case SUPPLIER:
@@ -25,7 +26,9 @@ public class BOFactory {
             case ITEM:
                 return new ItemBOImpl();
             case EMPLOYEE:
-                return null;
+                return new EmployeeBOImpl();
+            case SALARY:
+                return new SalaryBOImpl();
             case STOCK_ORDER:
                 return null;
             case PLACE_ORDER:

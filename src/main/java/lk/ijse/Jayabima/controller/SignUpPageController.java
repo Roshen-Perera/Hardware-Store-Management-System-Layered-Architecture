@@ -8,19 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
-import lk.ijse.Jayabima.dto.SignUpDto;
+import lk.ijse.Jayabima.dto.RegisterDto;
 import lk.ijse.Jayabima.model.SignUpModel;
-import lk.ijse.Jayabima.validation.Validation;
 import org.controlsfx.control.Notifications;
 
-import javax.management.Notification;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class SignUpPageController {
@@ -79,7 +74,7 @@ public class SignUpPageController {
                     return;
                 }
                 clearFields();
-                var dto = new SignUpDto(name, mobile, password, repeatPassword);
+                var dto = new RegisterDto(name, mobile, password, repeatPassword);
                 boolean isSaved = SignUpModel.saveUser(dto);
                 if (isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"User Saved").show();

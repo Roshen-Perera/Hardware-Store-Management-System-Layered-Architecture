@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import lk.ijse.Jayabima.dto.SignUpDto;
+import lk.ijse.Jayabima.dto.RegisterDto;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -51,7 +51,7 @@ public class ButtonBarFormController implements Serializable {
     @FXML
     private AnchorPane rootHome;
 
-    private SignUpDto signUpDto;
+    private RegisterDto signUpDto;
 
 
     @FXML

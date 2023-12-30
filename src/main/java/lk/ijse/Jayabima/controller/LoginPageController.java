@@ -11,10 +11,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import lk.ijse.Jayabima.db.DbConnection;
-import lk.ijse.Jayabima.dto.SignUpDto;
 import lk.ijse.Jayabima.model.SignUpModel;
 
-import javax.management.Notification;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;

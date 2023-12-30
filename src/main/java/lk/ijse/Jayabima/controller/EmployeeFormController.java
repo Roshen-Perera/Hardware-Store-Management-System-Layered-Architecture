@@ -15,11 +15,13 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.EmployeeBO;
+import lk.ijse.Jayabima.bo.custom.SalaryBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.EmployeeDto;
 import lk.ijse.Jayabima.dto.SalaryDto;
 import lk.ijse.Jayabima.dto.tm.EmployeeTm;
-import lk.ijse.Jayabima.model.EmployeeModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -88,8 +90,9 @@ public class EmployeeFormController {
     @FXML
     private Label lblTime;
 
-    EmployeeModel employeeModel = new EmployeeModel();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.EMPLOYEE);
 
+    SalaryBO salaryBO = (SalaryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SALARY);
     ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
 
     public void initialize() {
@@ -118,7 +121,7 @@ public class EmployeeFormController {
     private void generateNextCustomerID(){
         try {
             String previousEmployeeID = lblId.getText();
-            String employeeID = employeeModel.generateNextEmployee();
+            String employeeID = employeeBO.generateEmployeeID();
             lblId.setText(employeeID);
             clearFields();
             if (btnClearPressed){
@@ -156,11 +159,10 @@ public class EmployeeFormController {
 
 
     private void loadAllCustomer() {
-        var model = new EmployeeModel();
 
         ObservableList<EmployeeTm> obList = FXCollections.observableArrayList();
         try{
-            List<EmployeeDto> dtoList = model.getAllEmployee();
+            List<EmployeeDto> dtoList = employeeBO.getAllEmployee();
 
             for (EmployeeDto dto : dtoList) {
                 obList.add(
@@ -205,9 +207,9 @@ public class EmployeeFormController {
             }
             clearFields();
             var dto = new EmployeeDto(id, name, role, address, salary, mobile);
-            boolean isSaved = employeeModel.saveEmployee(dto);
+            boolean isSaved = employeeBO.saveEmployee(dto);
             var dto1 = new SalaryDto(id, salary, "");
-            employeeModel.saveSalary(dto1);
+            salaryBO.saveSalary(dto1);
             if (isSaved){
                 new Alert(Alert.AlertType.CONFIRMATION,"Employee details Saved").show();
                 clearFields();
@@ -228,12 +230,12 @@ public class EmployeeFormController {
     }
 
     @FXML
-    void btnDeleteEmployeeOnAction(ActionEvent event) {
+    void btnDeleteEmployeeOnAction(ActionEvent event) throws ClassNotFoundException {
         String id  = lblId.getText();
 
         try {
-            boolean isDeleted = employeeModel.deleteEmployee(id);
-            employeeModel.deleteSalary(id);
+            boolean isDeleted = employeeBO.deleteEmployee(id);
+            salaryBO.deleteSalary(id);
             if (isDeleted) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee Deleted").show();
                 clearFields();
@@ -251,7 +253,7 @@ public class EmployeeFormController {
     void btnSearchOnAction(ActionEvent event) {
         String id = txtId.getText();
         try {
-            EmployeeDto employeeDto = employeeModel.searchEmployee(id);
+            EmployeeDto employeeDto = employeeBO.searchEmployee(id);
             if (employeeDto != null) {
                 txtId.setText(employeeDto.getId());
                 txtName.setText(employeeDto.getName());
@@ -282,9 +284,9 @@ public class EmployeeFormController {
             }
             clearFields();
             var dto = new EmployeeDto(id, name, role, address, salary, mobile);
-            boolean isUpdated = employeeModel.updateEmployee(dto);
+            boolean isUpdated = employeeBO.updateEmployee(dto);
             var dto1 = new SalaryDto(id, salary, "");
-            employeeModel.updateSalary(dto1);
+            salaryBO.updateSalary(dto1);
             if(isUpdated) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Employee details updated").show();;
                 clearFields();

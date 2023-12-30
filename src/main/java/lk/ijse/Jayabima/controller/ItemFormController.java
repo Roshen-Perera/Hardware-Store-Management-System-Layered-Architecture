@@ -14,11 +14,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.util.Duration;
 import lk.ijse.Jayabima.bo.BOFactory;
 import lk.ijse.Jayabima.bo.custom.ItemBO;
+import lk.ijse.Jayabima.bo.custom.SupplierBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.ItemDto;
 import lk.ijse.Jayabima.dto.SupplierDto;
 import lk.ijse.Jayabima.dto.tm.ItemTm;
-import lk.ijse.Jayabima.model.SupplierModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -91,9 +91,10 @@ public class ItemFormController {
     @FXML
     private Label lblTime;
 
-    ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
+    private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
+    private SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
 
-    private SupplierModel supplierModel = new SupplierModel();
+
 
     public void initialize() {
         loadAllItems();
@@ -108,7 +109,7 @@ public class ItemFormController {
         ObservableList<String> obList = FXCollections.observableArrayList();
 
         try {
-            List<SupplierDto> idList = supplierModel.getAllSupplier();
+            List<SupplierDto> idList = supplierBO.getAllSupplier();
 
             for (SupplierDto dto : idList) {
                 obList.add(dto.getSupId());
@@ -316,7 +317,7 @@ public class ItemFormController {
         String id = cmdSupplierId.getValue();
 //        CustomerModel customerModel = new CustomerModel();
         try {
-            SupplierDto supplierDto = supplierModel.searchSupplier(id);
+            SupplierDto supplierDto = supplierBO.searchSupplier(id);
             lblSupplierId.setText(supplierDto.getSupId());
             lblSupplierName.setText(supplierDto.getSupName());
 

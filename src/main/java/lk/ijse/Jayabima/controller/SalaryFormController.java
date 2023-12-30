@@ -10,9 +10,11 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.EmployeeBO;
+import lk.ijse.Jayabima.bo.custom.SalaryBO;
 import lk.ijse.Jayabima.dto.SalaryDto;
 import lk.ijse.Jayabima.dto.tm.SalaryTm;
-import lk.ijse.Jayabima.model.SalaryModel;
 
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -49,7 +51,8 @@ public class SalaryFormController {
     @FXML
     private TableView<SalaryTm> tblSalary;
 
-    SalaryModel salaryModel = new SalaryModel();
+    SalaryBO salaryBO = (SalaryBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SALARY);
+
 
     public void initialize(){
         setDateAndTime();
@@ -77,11 +80,10 @@ public class SalaryFormController {
     }
 
     private void loadAllSalary() {
-        var model = new SalaryModel();
 
         ObservableList<SalaryTm> obList = FXCollections.observableArrayList();
         try{
-            List<SalaryDto> dtoList = model.getAllSalary();
+            List<SalaryDto> dtoList = salaryBO.getAllSalary();
 
             for (SalaryDto dto : dtoList) {
                 obList.add(
@@ -118,7 +120,7 @@ public class SalaryFormController {
 
         var dto = new SalaryDto(empId, salary, status);
         try {
-            boolean isSaved = salaryModel.updateStatus(dto);
+            boolean isSaved = salaryBO.updateSalary(dto);
             if(isSaved) {
                 new Alert(Alert.AlertType.CONFIRMATION,"Salary Status Saved").show();
 //                clearFields();
