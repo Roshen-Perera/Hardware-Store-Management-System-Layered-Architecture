@@ -10,8 +10,9 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.RegisterBO;
 import lk.ijse.Jayabima.dto.RegisterDto;
-import lk.ijse.Jayabima.model.SignUpModel;
 import org.controlsfx.control.Notifications;
 
 import java.io.IOException;
@@ -27,17 +28,12 @@ public class SignUpPageController {
     private TextField txtUserName;
     @FXML
     private PasswordField txtRepeatPassword;
-
-
-
     @FXML
     private AnchorPane rootNode;
 
-    public void initialize(){
+    RegisterBO registerBO = (RegisterBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.REGISTER);
 
-    }
-    private void loadAllUser() {
-        var model = new SignUpModel();
+    public void initialize(){
 
     }
     private void clearFields() {
@@ -75,7 +71,7 @@ public class SignUpPageController {
                 }
                 clearFields();
                 var dto = new RegisterDto(name, mobile, password, repeatPassword);
-                boolean isSaved = SignUpModel.saveUser(dto);
+                boolean isSaved = registerBO.saveUser(dto);
                 if (isSaved){
                     new Alert(Alert.AlertType.CONFIRMATION,"User Saved").show();
                 }

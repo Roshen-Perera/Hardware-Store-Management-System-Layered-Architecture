@@ -12,13 +12,15 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        REGISTER,CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, STOCK_ORDER_DETAIL, CUSTOMER_ORDER, CUSTOMER_ORDER_DETAIL
+        REGISTER, LOGIN,CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, STOCK_ORDER_DETAIL, CUSTOMER_ORDER, CUSTOMER_ORDER_DETAIL
     }
 
     public SuperDAO getDAO(DAOTypes daoTypes){
         switch (daoTypes){
             case REGISTER:
                 return new RegisterDAOImpl();
+            case LOGIN:
+                return new LoginDAOImpl();
             case CUSTOMER:
                 return new CustomerDAOImpl();
             case SUPPLIER:

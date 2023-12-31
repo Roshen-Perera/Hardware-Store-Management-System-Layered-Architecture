@@ -10,8 +10,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lk.ijse.Jayabima.bo.BOFactory;
+import lk.ijse.Jayabima.bo.custom.LoginBO;
+import lk.ijse.Jayabima.dao.DAOFactory;
 import lk.ijse.Jayabima.db.DbConnection;
-import lk.ijse.Jayabima.model.SignUpModel;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -30,10 +32,7 @@ public class LoginPageController {
     @FXML
     private TextField txtUserName;
 
-    private SignUpModel signUpModel = new SignUpModel();
-
-
-
+    LoginBO loginBO = (LoginBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.LOGIN);
     private void clearFields() {
         txtUserName.setText("");
         txtPassword.setText("");
@@ -50,19 +49,13 @@ public class LoginPageController {
     void btnSignInOnAction(ActionEvent event) throws IOException, SQLException{
         String username = txtUserName.getText();
         String password = txtPassword.getText();
-        Connection connection = DbConnection.getInstance().getConnection();
-        String sql = "SELECT * FROM user WHERE name = ? AND password = ?";
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, username);
-            preparedStatement.setString(2, password);
-
+            boolean login = loginBO.login(username, password);
             if(username.isEmpty() || password.isEmpty()) {
-                new Alert(Alert.AlertType.ERROR,"Empty").show();
+                new Alert(Alert.AlertType.ERROR, "Empty").show();
                 return;
             }
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            if (login) {
                 Parent rootNode = FXMLLoader.load(this.getClass().getResource("/view/buttonbar_form.fxml"));
                 Scene scene =new Scene(rootNode);
                 Stage primaryStage = (Stage) this.rootNode.getScene().getWindow();

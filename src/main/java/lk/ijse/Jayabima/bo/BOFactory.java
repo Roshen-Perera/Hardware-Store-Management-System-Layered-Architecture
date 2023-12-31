@@ -13,12 +13,14 @@ public class BOFactory {
 
     }
     public enum BOTypes{
-        REGISTER,CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, PLACE_ORDER
+        REGISTER, LOGIN,CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, PLACE_ORDER
     }
     public SuperBO getBO(BOTypes boTypes){
         switch (boTypes){
             case REGISTER:
                 return new RegisterBOImpl();
+            case LOGIN:
+                return new LoginBOImpl();
             case CUSTOMER:
                 return new CustomerBOImpl();
             case SUPPLIER:
