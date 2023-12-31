@@ -66,7 +66,7 @@ public class ItemDAOImpl implements ItemDAO {
 
     @Override
     public Item search(String id) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT * from item item_id = ?", id);
+        ResultSet rst = SQLUtil.execute("SELECT * from item where item_id = ?", id);
         rst.next();
         return new Item(
                 id + "",

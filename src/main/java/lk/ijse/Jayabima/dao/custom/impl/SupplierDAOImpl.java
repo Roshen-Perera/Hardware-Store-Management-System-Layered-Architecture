@@ -61,13 +61,13 @@ public class SupplierDAOImpl implements SupplierDAO {
 
     @Override
     public Supplier search(String id) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT * FROM Supplier WHERE cus_id=?",id);
+        ResultSet rst = SQLUtil.execute("SELECT * FROM Supplier WHERE sup_id=?",id);
         rst.next();
         return new Supplier(
                 id + "",
                 rst.getString("sup_name"),
                 rst.getString("sup_description"),
-                rst.getString("cus_contact")
+                rst.getString("sup_contact")
         );
     }
 }
