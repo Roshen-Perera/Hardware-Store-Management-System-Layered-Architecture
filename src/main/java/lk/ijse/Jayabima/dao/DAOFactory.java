@@ -12,7 +12,7 @@ public class DAOFactory {
     }
 
     public enum DAOTypes{
-        REGISTER, LOGIN,CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, STOCK_ORDER_DETAIL, CUSTOMER_ORDER, CUSTOMER_ORDER_DETAIL
+        REGISTER, LOGIN, DASHBOARD, CUSTOMER, SUPPLIER, ITEM, EMPLOYEE, SALARY, STOCK_ORDER, STOCK_ORDER_DETAIL, CUSTOMER_ORDER, CUSTOMER_ORDER_DETAIL
     }
 
     public SuperDAO getDAO(DAOTypes daoTypes){
@@ -21,6 +21,8 @@ public class DAOFactory {
                 return new RegisterDAOImpl();
             case LOGIN:
                 return new LoginDAOImpl();
+            case DASHBOARD:
+                return new DashboardDAOImpl();
             case CUSTOMER:
                 return new CustomerDAOImpl();
             case SUPPLIER:
@@ -32,13 +34,13 @@ public class DAOFactory {
             case SALARY:
                 return new SalaryDAOImpl();
             case STOCK_ORDER:
-                return null;
+                return new StockOrderDAOImpl();
             case STOCK_ORDER_DETAIL:
-                return null;
+                return new StockOrderDetailDAOImpl();
             case CUSTOMER_ORDER:
-                return null;
+                return new CustomerOrderDAOImpl();
             case CUSTOMER_ORDER_DETAIL:
-                return null;
+                return new CustomerOrderDetailDAOImpl();
             default:
                 return null;
         }

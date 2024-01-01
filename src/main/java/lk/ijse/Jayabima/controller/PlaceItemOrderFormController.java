@@ -20,14 +20,13 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.Jayabima.bo.BOFactory;
 import lk.ijse.Jayabima.bo.custom.CustomerBO;
+import lk.ijse.Jayabima.bo.custom.CustomerOrderBO;
 import lk.ijse.Jayabima.bo.custom.ItemBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.CustomerDto;
 import lk.ijse.Jayabima.dto.ItemDto;
-import lk.ijse.Jayabima.dto.PlaceItemOrderDto;
+import lk.ijse.Jayabima.dto.PlaceCustomerOrderDto;
 import lk.ijse.Jayabima.dto.tm.CustomerCartTm;
-import lk.ijse.Jayabima.model.ItemOrderModel;
-import lk.ijse.Jayabima.model.PlaceItemOrderModel;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
@@ -114,8 +113,7 @@ public class PlaceItemOrderFormController {
 
     private CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER);
     private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
-    private ItemOrderModel itemOrderModel = new ItemOrderModel();
-    private PlaceItemOrderModel placeItemOrderModel = new PlaceItemOrderModel();
+    private CustomerOrderBO customerOrderBO = (CustomerOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMER_ORDER);
     private ObservableList<CustomerCartTm> obList = FXCollections.observableArrayList();
 
     public void initialize() throws ClassNotFoundException {
@@ -159,7 +157,7 @@ public class PlaceItemOrderFormController {
 
     private void generateNextOrderId() {
         try {
-            String orderId = itemOrderModel.generateNextOrderId();
+            String orderId = customerOrderBO.generateCustomerOrderID();
             lblOrderId.setText(orderId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -240,9 +238,9 @@ public class PlaceItemOrderFormController {
         }
 
         System.out.println("Place order form controller: " + customerCartTmList);
-        var placeOrderDto = new PlaceItemOrderDto(orderId,customerId, customerName, totalPrice, date, customerCartTmList);
+        var placeOrderDto = new PlaceCustomerOrderDto(orderId,customerId, customerName, totalPrice, date, customerCartTmList);
         try {
-            boolean isSuccess = placeItemOrderModel.placeOrder(placeOrderDto);
+            boolean isSuccess = customerOrderBO.placeOrder(placeOrderDto);
             if (isSuccess) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Order Success!").show();
                 generateReciept();

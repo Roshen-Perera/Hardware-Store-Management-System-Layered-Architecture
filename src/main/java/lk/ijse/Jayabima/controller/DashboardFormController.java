@@ -9,6 +9,9 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.util.Duration;
+import lk.ijse.Jayabima.dao.DAOFactory;
+import lk.ijse.Jayabima.dao.custom.DashboardDAO;
+import lk.ijse.Jayabima.dao.custom.impl.DashboardDAOImpl;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.CustomerDto;
 
@@ -45,7 +48,7 @@ public class DashboardFormController {
     @FXML
     private Label lblTime;
 
-
+    DashboardDAO dashboardDAO = (DashboardDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.DASHBOARD);
 
     public void initialize() throws SQLException {
         setDateAndTime();
@@ -71,81 +74,33 @@ public class DashboardFormController {
     }
 
     private void countCustomer() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
-        String query = "select count(*) from customer";
-        //Executing the query
-        ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
-        rs.next();
-        int count = rs.getInt(1);
+        int count = dashboardDAO.countCustomer();
         lblCustomer.setText(String.valueOf(count));
 
     }
 
     private void countEmployee() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
-        String query = "select count(*) from employee";
-        //Executing the query
-        ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
-        rs.next();
-        int count = rs.getInt(1);
+        int count = dashboardDAO.countEmployee();
         lblEmployee.setText(String.valueOf(count));
     }
 
     private void countSupplier() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
-        String query = "select count(*) from supplier";
-        //Executing the query
-        ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
-        rs.next();
-        int count = rs.getInt(1);
+        int count = dashboardDAO.countSupplier();
         lblSupplier.setText(String.valueOf(count));
     }
 
     private void countItem() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
-        String query = "select sum(item_qty) from item";
-        //Executing the query
-        ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
-        rs.next();
-        int count = rs.getInt(1);
+        int count = dashboardDAO.countItem();
         lblItems.setText(String.valueOf(count));
     }
 
     private void countStockOrder() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
-        String query = "select count(*) from stock_order";
-        //Executing the query
-        ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
-        rs.next();
-        int count = rs.getInt(1);
-        lblStockOrders.setText(String.valueOf(count));
+        int count = dashboardDAO.countStockOrder();
+        lblItemOrders.setText(String.valueOf(count));
     }
 
     private void countItemOrder() throws SQLException {
-        Connection connection = DbConnection.getInstance().getConnection();
-        Statement stmt = connection.createStatement();
-        //Query to get the number of rows in a table
-        String query = "select count(*) from orders";
-        //Executing the query
-        ResultSet rs = stmt.executeQuery(query);
-        //Retrieving the result
-        rs.next();
-        int count = rs.getInt(1);
-        lblItemOrders.setText(String.valueOf(count));
+        int count = dashboardDAO.countItemOrder();
+        lblStockOrders.setText(String.valueOf(count));
     }
 }

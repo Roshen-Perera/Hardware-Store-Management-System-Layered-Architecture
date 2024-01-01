@@ -1,20 +1,28 @@
-package lk.ijse.Jayabima.model;
+package lk.ijse.Jayabima.bo.custom.impl;
 
+import lk.ijse.Jayabima.bo.custom.CustomerOrderBO;
 import lk.ijse.Jayabima.dao.DAOFactory;
+import lk.ijse.Jayabima.dao.custom.CustomerOrderDAO;
+import lk.ijse.Jayabima.dao.custom.CustomerOrderDetailDAO;
 import lk.ijse.Jayabima.dao.custom.ItemDAO;
 import lk.ijse.Jayabima.db.DbConnection;
-import lk.ijse.Jayabima.dto.PlaceItemOrderDto;
+import lk.ijse.Jayabima.dto.PlaceCustomerOrderDto;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
-public class PlaceItemOrderModel {
-    private ItemOrderModel itemOrderModel = new ItemOrderModel();
-    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
-    private ItemOrderDetailModel itemOrderDetailModel = new ItemOrderDetailModel();
+public class CustomerOrderBOImpl implements CustomerOrderBO {
 
-    public boolean placeOrder(PlaceItemOrderDto placeItemOrderDto) throws SQLException {
+    ItemDAO itemDAO = (ItemDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.ITEM);
+    CustomerOrderDAO customerOrderDAO = (CustomerOrderDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER_ORDER);
+    CustomerOrderDetailDAO customerOrderDetailDAO = (CustomerOrderDetailDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMER_ORDER_DETAIL);
+
+    public String generateCustomerOrderID() throws SQLException {
+        return customerOrderDAO.generateID();
+    }
+
+    public boolean placeOrder(PlaceCustomerOrderDto placeItemOrderDto) throws SQLException {
         System.out.println(placeItemOrderDto);
 
         String orderId = placeItemOrderDto.getOrderId();
@@ -28,11 +36,11 @@ public class PlaceItemOrderModel {
             connection = DbConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
 
-            boolean isOrderSaved = itemOrderModel.saveOrder(orderId, customerId, customerName, totalPrice, date);
+            boolean isOrderSaved = customerOrderDAO.saveCustomerOrder(orderId, customerId, customerName, totalPrice, date);
             if (isOrderSaved) {
                 boolean isUpdated = itemDAO.updateItem(placeItemOrderDto.getCustomerCartTmList());
                 if (isUpdated) {
-                    boolean isOrderDetailSaved = itemOrderDetailModel.saveOrderDetails(placeItemOrderDto.getOrderId(), placeItemOrderDto.getCustomerCartTmList());
+                    boolean isOrderDetailSaved = customerOrderDetailDAO.saveCustomerOrderDetails(placeItemOrderDto.getOrderId(), placeItemOrderDto.getCustomerCartTmList());
                     if (isOrderDetailSaved) {
                         connection.commit();
                     }

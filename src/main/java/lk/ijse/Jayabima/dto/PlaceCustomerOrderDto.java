@@ -13,7 +13,7 @@ import java.util.List;
 @Getter
 @Setter
 @ToString
-public class PlaceItemOrderDto {
+public class PlaceCustomerOrderDto {
     private String orderId;
     private String customerId;
     private String customerName;

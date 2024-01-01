@@ -20,16 +20,14 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 import lk.ijse.Jayabima.bo.BOFactory;
 import lk.ijse.Jayabima.bo.custom.ItemBO;
+import lk.ijse.Jayabima.bo.custom.StockOrderBO;
 import lk.ijse.Jayabima.bo.custom.SupplierBO;
 import lk.ijse.Jayabima.db.DbConnection;
 import lk.ijse.Jayabima.dto.ItemDto;
 import lk.ijse.Jayabima.dto.PlaceStockOrderDto;
 import lk.ijse.Jayabima.dto.SupplierDto;
-import lk.ijse.Jayabima.dto.tm.CustomerCartTm;
 import lk.ijse.Jayabima.dto.tm.StockCartTm;
-import lk.ijse.Jayabima.model.*;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.design.JRDesignQuery;
 import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import net.sf.jasperreports.view.JasperViewer;
@@ -45,9 +43,6 @@ import java.util.List;
 import java.util.Optional;
 
 public class PlaceStockOrderFormController {
-
-    @FXML
-    private JFXButton btnAddToCart;
 
     @FXML
     private JFXComboBox<String> cmbItemCode;
@@ -108,9 +103,8 @@ public class PlaceStockOrderFormController {
 
     private SupplierBO supplierBO = (SupplierBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.SUPPLIER);
     private ItemBO itemBO = (ItemBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.ITEM);
-    private StockOrderModel stockOrderModel = new StockOrderModel();
-    private PlaceStockOrderModel placeStockOrderModel = new PlaceStockOrderModel();
 
+    private StockOrderBO stockOrderBO = (StockOrderBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.STOCK_ORDER);
     private ObservableList<StockCartTm> obList = FXCollections.observableArrayList();
 
     public void initialize() {
@@ -195,7 +189,7 @@ public class PlaceStockOrderFormController {
 
     private void generateNextStockOrderId() {
         try {
-            String orderId = stockOrderModel.generateNextStockOrderId();
+            String orderId = stockOrderBO.generateStockOrderID();
             lblOrderId.setText(orderId);
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -278,7 +272,7 @@ public class PlaceStockOrderFormController {
         System.out.println("Place order form controller : "+ stockCartTmList);
         var placeStockOrderDto = new PlaceStockOrderDto(stockOrder_id, sup_id, stockOrder_date, stockCartTmList);
         try {
-            boolean isSuccess = placeStockOrderModel.placeStockOrder(placeStockOrderDto);
+            boolean isSuccess = stockOrderBO.placeStockOrder(placeStockOrderDto);
             if (isSuccess) {
                 new Alert(Alert.AlertType.CONFIRMATION, "Stock Order Success").show();
             }
