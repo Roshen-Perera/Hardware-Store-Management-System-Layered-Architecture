@@ -28,7 +28,7 @@ public class CustomerOrderBOImpl implements CustomerOrderBO {
         String orderId = placeItemOrderDto.getOrderId();
         String customerId = placeItemOrderDto.getCustomerId();
         String customerName = placeItemOrderDto.getCustomerName();
-        double totalPrice = Double.parseDouble(placeItemOrderDto.getTotalPrice());
+        double totalPrice = placeItemOrderDto.getTotalPrice();
         LocalDate date = placeItemOrderDto.getDate();
 
         Connection connection = null;
